@@ -6,8 +6,8 @@ import { GraphRef } from './GraphRef'
 
 export async function buildVariables(publishInput: PublishInput): Promise<SubgraphPublishMutationVariables> {
   const graphRef = new GraphRef(publishInput.graph)
-  const git_context = new GitContext()
-  await git_context.init()
+  const git_context = publishInput.use_git_context ? new GitContext() : void 0
+  if (git_context) await git_context.init()
 
   return {
     graph_id: graphRef.name,

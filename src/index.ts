@@ -8,11 +8,12 @@ import { buildVariables } from './util'
 export type PublishInput = {
   graph: string
   subgraph: string
-
   schema: string
+  routing_url?: string
+
   credential: Credential
 
-  routing_url?: string
+  use_git_context?: boolean
 }
 
 export async function publish(input: PublishInput) {

@@ -9104,7 +9104,7 @@ export type SubgraphPublishMutationVariables = Exact<{
   url?: Maybe<Scalars['String']>;
   revision: Scalars['String'];
   schema: PartialSchemaInput;
-  git_context: GitContextInput;
+  git_context?: Maybe<GitContextInput>;
 }>;
 
 
@@ -9112,7 +9112,7 @@ export type SubgraphPublishMutation = { __typename?: 'Mutation', service?: Maybe
 
 
 export const SubgraphPublishDocument = gql`
-    mutation SubgraphPublish($graph_id: ID!, $variant: String!, $subgraph: String!, $url: String, $revision: String!, $schema: PartialSchemaInput!, $git_context: GitContextInput!) {
+    mutation SubgraphPublish($graph_id: ID!, $variant: String!, $subgraph: String!, $url: String, $revision: String!, $schema: PartialSchemaInput!, $git_context: GitContextInput) {
   service(id: $graph_id) {
     upsertImplementingServiceAndTriggerComposition(name: $subgraph, url: $url, revision: $revision, activePartialSchema: $schema, graphVariant: $variant, gitContext: $git_context) {
       compositionConfig {
