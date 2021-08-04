@@ -1,0 +1,62 @@
+{
+  "name": "apollostudio-subgraph-publish",
+  "version": "0.0.0-dripip",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/draoncc/apollostudio-subgraph-publish"
+  },
+  "keywords": [
+    "graphql",
+    "apollostudio",
+    "federation",
+    "subgraph"
+  ],
+  "author": "draoncc",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/draoncc/apollostudio-subgraph-publish/issues"
+  },
+  "homepage": "https://github.com/draoncc/apollostudio-subgraph-publish",
+  "scripts": {
+    "dev": "rm -rf dist && tsc --watch",
+    "dev:test": "jest --watch",
+    "format": "prettier --write .",
+    "build": "rm -rf dist && tsc -d",
+    "test": "jest",
+    "release:stable": "dripip stable",
+    "release:preview": "dripip preview",
+    "release:pr": "dripip pr",
+    "generate": "graphql-codegen"
+  },
+  "dependencies": {
+    "graphql-request": "^3.5.0",
+    "nodegit": "^0.27.0"
+  },
+  "peerDependencies": {
+    "graphql": "14.x || 15.x"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^2.0.1",
+    "@graphql-codegen/typescript": "^2.0.0",
+    "@graphql-codegen/typescript-graphql-request": "^4.0.0",
+    "@graphql-codegen/typescript-operations": "^2.0.1",
+    "@prisma-labs/prettier-config": "^0.1.0",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^16.4.10",
+    "@types/nodegit": "^0.27.3",
+    "dripip": "^0.10.0",
+    "graphql": "^14.7.0",
+    "jest": "^27.0.6",
+    "prettier": "^2.3.2",
+    "ts-jest": "^27.0.4",
+    "typescript": "^4.2.3"
+  },
+  "prettier": "@prisma-labs/prettier-config",
+  "jest": {
+    "preset": "ts-jest"
+  }
+}
