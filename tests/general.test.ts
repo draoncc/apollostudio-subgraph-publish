@@ -7,7 +7,7 @@ test('query', async () => {
 
   const schema = readFileSync('./tests/products.graphql').toString()
 
-  const data = await publish({
+  const { success, errors } = await publish({
     graph: process.env.APOLLO_GRAPH || 'example-lyd9e@current',
     subgraph: 'products',
     schema,
@@ -15,8 +15,6 @@ test('query', async () => {
     routing_url: 'http://products.svc.cluster.local:4001/graphql',
   })
 
-  expect(data).toBeDefined()
-  expect(data.service).toBeDefined()
-  expect(data.service!.upsertImplementingServiceAndTriggerComposition).toBeDefined()
-  expect(data.service!.upsertImplementingServiceAndTriggerComposition!.errors).toHaveLength(0)
+  expect(errors).toHaveLength(0)
+  expect(success).toBe(true)
 })

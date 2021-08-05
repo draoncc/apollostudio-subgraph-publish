@@ -1,6 +1,6 @@
 import { GraphQLSchema } from 'graphql'
 
-import { getSdk } from './generated/graphql'
+import { getSdk, SubgraphPublishMutation } from './generated/graphql'
 
 import { StudioClient, Credential } from './StudioClient'
 import { buildVariables } from './util'
@@ -16,9 +16,28 @@ export type PublishInput = {
   use_git_context?: boolean
 }
 
-export async function publish(input: PublishInput) {
+export type PublishOutput = Pick<
+  NonNullable<
+    NonNullable<SubgraphPublishMutation['service']>['upsertImplementingServiceAndTriggerComposition']
+  >,
+  'errors' | 'didUpdateGateway' | 'serviceWasCreated'
+> & {
+  success: boolean
+}
+
+export async function publish(input: PublishInput): Promise<PublishOutput> {
   const sdk = getSdk(new StudioClient(input.credential))
 
   const variables = await buildVariables(input)
-  return sdk.SubgraphPublish(variables)
+  const { service } = await sdk.SubgraphPublish(variables)
+
+  if (service && service.upsertImplementingServiceAndTriggerComposition) {
+    const {
+      upsertImplementingServiceAndTriggerComposition: { errors, didUpdateGateway, serviceWasCreated },
+    } = service
+    const success = !errors.length
+    return { success, errors, didUpdateGateway, serviceWasCreated }
+  } else {
+    return { success: false, errors: [], didUpdateGateway: false, serviceWasCreated: false }
+  }
 }
