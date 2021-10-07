@@ -1,5 +1,4 @@
-import Git from 'nodegit'
-import { Reference, Object as GitObject } from 'nodegit'
+import { Object as GitObject } from 'nodegit'
 
 export interface GitContext {
   branch: string
@@ -15,6 +14,8 @@ export class GitContext implements GitContext {
   }
 
   async init() {
+    const Git = await import('nodegit')
+
     const path = await Git.Repository.discover('.', 0, '')
     const repo = await Git.Repository.open(path)
     const head = await repo.head()

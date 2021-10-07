@@ -39,6 +39,11 @@
     "graphql": "14.x || 15.x",
     "nodegit": "^0.27.0"
   },
+  "peerDependenciesMeta": {
+    "nodegit": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.0.1",
     "@graphql-codegen/typescript": "^2.0.0",
